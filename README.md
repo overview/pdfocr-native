@@ -25,6 +25,29 @@ Developing
    if you're on Linux, [install docker-compose](https://docs.docker.com/compose/install/#install-compose).
 1. Run `./make && ./python3 test/*_test.py`
 
+Using in your service
+=====================
+
+Use a multi-stage build in your `Dockerfile`. Like this:
+
+```
+# Download binaries as a build stage
+FROM overview/pdfocr-native:latest AS pdfocr
+
+# Okay, back to your regularly-scheduled Dockerfile....:
+FROM alpine:3.7
+
+#...
+
+# Now you can COPY in the pdfocr binaries:
+COPY --from=pdfocr /split-pdf-and-extract-text /bin/
+
+#...
+```
+
+From there, you have binaries in your service, and you can invoke them as
+`/bin/split-pdf-and-extract-text`.
+
 split-pdf-and-extract-text
 ==========================
 
