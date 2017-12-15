@@ -49,13 +49,22 @@ WORKDIR /src
 
 # == build == : our base for running ./make, ./python3, etc.
 FROM prebuild AS build
-VOLUME /src
-
+#VOLUME /src
+# This VOLUME shouldn't be commented out, but it breaks the multi-stage build
+# because future build stages write to /src/.
+#
+# Use the Docker command line to mount the volume.
 
 # == compiled == : prebuild plus binaries
 FROM prebuild AS compiled
+WORKDIR /src
 COPY . /src/
-RUN set +x; make && python3 test/test_*.py
+RUN make all
+# Fail the build if tests fail.
+#
+# Docker Hub: a minimal CI framework.
+RUN python3 test/test_*.py
+
 
 # == binaries == : just the binaries
 FROM scratch AS binaries
