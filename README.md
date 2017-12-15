@@ -68,6 +68,7 @@ Where `HEADER` is:
     nPages    [ 4-byte integer, big-endian ]
 
 `PAGE` is:
+
     0x2       [ 1 byte ]
     isOcr     [ boolean, 1 byte, either 0x0 or 0x1 ]
     thumbLen  [ 4-byte integer, big-endian, may be 0x00000000 ]
