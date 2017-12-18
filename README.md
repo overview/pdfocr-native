@@ -55,8 +55,8 @@ To deploy to non-Dockerized Overview, run these steps after you push a new
 version of pdfocr-native:
 
 1. `./make clean all` to generate binaries on your local machine.
-1. `aws s3 cp split-pdf-and-extract-text s3://overview-builds/pdfocr-native/latest/split-pdf-and-extract-text` to copy your _local_ binary to a special S3 bucket that Overview's deployment scripts use.
-1. On the server, `sudo -u overview aws s3 cp s3://overview-builds/pdfocr-native/latest/split-pdf-and-extract-text /opt/overview/ && sudo chmod +x /opt/overview/split-pdf-and-extract-text` to install the new binary. (Beware the race: if Overview tries running the program during the 1s-long copy, it'll fail on that document.)
+1. `aws s3 cp split-pdf-and-extract-text s3://overview-builds.overviewdocs.com/pdfocr-native/latest/split-pdf-and-extract-text` to copy your _local_ binary to a special S3 bucket that Overview's deployment scripts use.
+1. On the server, `sudo -u overview aws s3 cp s3://overview-builds.overviewdocs.com/pdfocr-native/latest/split-pdf-and-extract-text /opt/overview/ && sudo chmod +x /opt/overview/split-pdf-and-extract-text` to install the new binary. (Beware the race: if Overview tries running the program during the 1s-long copy, it'll fail on that document.)
 
 split-pdf-and-extract-text
 ==========================
